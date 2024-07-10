@@ -1,5 +1,6 @@
 package com.example.kahoot.entity;
 
+import org.aspectj.weaver.ast.Not;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,7 +31,7 @@ public class User implements UserDetails {
     private String email;
 
     @OneToMany(mappedBy = "user")
-    private List<QuizResult> quizResults;
+    private List<Note> notes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

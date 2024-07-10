@@ -13,10 +13,6 @@ public class User {
 
     private String username;
 
-    private String password;
-
-    private List<QuizResult> quizResults;
-
     private String avatarUrl;
 
     private String email;

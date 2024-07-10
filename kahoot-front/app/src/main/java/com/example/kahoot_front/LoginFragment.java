@@ -1,6 +1,7 @@
 package com.example.kahoot_front;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,17 +57,21 @@ public class LoginFragment extends Fragment {
         String password = passwordEditText.getText().toString().trim();
 
         LoginModel loginModel = new LoginModel(login, password);
-        Call<User> call = NetworkService.getInstance().getApiXml().loginUser(loginModel);
+        Call<User> call = NetworkService.getInstance().getApiJson().loginUser(loginModel);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     User user = response.body();
+                    Log.d("LoginFragment", "User logged in: " + user.getUsername());
                     SharedPrefManager.getInstance(getContext()).saveCurrentUser(user);
+                    redirectToMainFragment();
                 } else {
                     try {
+
                         String errorMessage = response.errorBody().string();
+                        Log.e("LoginFragment", "Failed to login user: " + errorMessage);
                         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -79,5 +84,12 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void redirectToMainFragment() {
+        MainFragment mainFragment = new MainFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, mainFragment, "MainFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }

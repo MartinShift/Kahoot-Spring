@@ -40,7 +40,7 @@ public class AccountController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/submitLogin")
     public ResponseEntity<?> loginUser(@RequestBody LoginModel loginModel) {
         User user = (User) userService.loadUserByUsername(loginModel.getLogin());
         if (user == null) {

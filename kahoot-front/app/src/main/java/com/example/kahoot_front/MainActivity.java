@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.example.kahoot_front.LoginFragment;
 import com.example.kahoot_front.MainFragment;
-import com.example.kahoot_front.R;
-import com.example.kahoot_front.RegisterFragment;
 import com.example.kahoot_front.service.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -76,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.logout) {
             SharedPrefManager.getInstance(this).logout();
             loadFragment(new LoginFragment());
+            return true;
+        }
+        if(item.getItemId() == R.id.profile)
+        {
+            loadFragment(new ProfileFragment());
+            return true;
+        }
+        if(item.getItemId() == R.id.notes)
+        {
+            loadFragment(new MainFragment());
             return true;
         }
         return super.onOptionsItemSelected(item);

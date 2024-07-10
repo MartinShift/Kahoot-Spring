@@ -47,6 +47,7 @@ public class RegisterFragment extends Fragment {
     private Uri imageUri;
     private Button uploadButton;
 
+
     private Api api;
 
     @Override
@@ -93,6 +94,7 @@ public class RegisterFragment extends Fragment {
                     User user = response.body();
                     SharedPrefManager.getInstance(getContext()).saveCurrentUser(user);
                     Log.i("RegisterFragment", "User registered successfully: " + user);
+                    redirectToMainFragment();
                 } else {
                     try {
                         String errorMessage = response.errorBody().string();
@@ -165,5 +167,13 @@ public class RegisterFragment extends Fragment {
             e.printStackTrace();
             Log.e("UploadImage", "Error uploading image", e);
         }
+    }
+
+    private void redirectToMainFragment() {
+        MainFragment mainFragment = new MainFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, mainFragment, "MainFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }

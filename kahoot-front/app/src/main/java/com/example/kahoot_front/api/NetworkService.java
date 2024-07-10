@@ -18,19 +18,19 @@ public class NetworkService {
 
     private NetworkService() {
         retrofitJson = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8080/")
+                .baseUrl("http://192.168.0.105:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiJson = retrofitJson.create(Api.class);
 
         retrofitScalar = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8080/")
+                .baseUrl("http://192.168.0.105:8080/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         apiScalar = retrofitScalar.create(Api.class);
 
         retrofitXml = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8080/")
+                .baseUrl("http://192.168.0.105:8080/")
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
         apiXml = retrofitXml.create(Api.class);
